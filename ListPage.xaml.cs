@@ -30,11 +30,40 @@ public partial class ListPage : ContentPage
 		}); 
 	}
 
+
+    async void OnDeleteItemButtonClicked(object sender, EventArgs e)
+    {
+        var selectedItem = listView.SelectedItem as Product; // Asum?m c? listView afi?eaz? produse.
+        if (selectedItem != null)
+        {
+            bool confirm = await DisplayAlert("Confirm Delete",
+                                              $"Are you sure you want to delete {selectedItem.Description}?",
+                                              "Yes",
+                                              "No");
+
+            if (confirm)
+            {
+                // ?terge produsul selectat din baza de date
+                await App.Database.DeleteProductAsync(selectedItem);
+
+                // Actualizeaz? lista de produse afi?at?
+                var shopList = (ShopList)BindingContext;
+                listView.ItemsSource = await App.Database.GetListProductsAsync(shopList.ID);
+            }
+        }
+        else
+        {
+            await DisplayAlert("Error", "No item selected to delete.", "OK");
+        }
+    }
+
     protected override async void OnAppearing() 
 	{ 
 		base.OnAppearing(); 
 		var shopl = (ShopList)BindingContext; 
 		listView.ItemsSource = await App.Database.GetListProductsAsync(shopl.ID); 
 	}
+
+
 
 }
