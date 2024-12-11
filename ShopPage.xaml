@@ -25,6 +25,10 @@
                         Clicked="OnShowMapButtonClicked">
                     
                 </Button>
+
+                <Button Text="Delete Shop" Grid.Column="1" Grid.Row="1" MaximumWidthRequest="200"
+        Clicked="OnDeleteButtonClicked" />
+
             </Grid>
         </StackLayout>
     </ContentPage.Content>

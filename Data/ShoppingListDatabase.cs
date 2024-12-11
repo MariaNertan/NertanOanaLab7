@@ -96,6 +96,12 @@ namespace NertanOanaLab7.Data
             } 
         }
 
+        public Task<int> DeleteShopAsync(Shop shop)
+        {
+            return _database.DeleteAsync(shop);
+        }
+
+
 
         public Task<List<Product>> GetListProductsAsync(int shoplistid) 
         { 
